@@ -1,9 +1,6 @@
 package com.empleados.recursos_humanos.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "empleados")
@@ -16,8 +13,29 @@ import lombok.*;
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idEmpleado;
-    String nombre;
-    String departamento;
-    Double sueldo;
+    Long id;
+
+    @Column(nullable = false, unique = true)
+    private String codigo;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String apellido;
+
+    private String direccion;
+    private String telefono;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String departamento;
+
+    private Double sueldo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cargo")
+    private Cargo cargo;
 }
